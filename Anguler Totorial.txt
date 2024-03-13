@@ -1,0 +1,168 @@
+Anguler Course:- 
+
+install npm and anguler cli.
+
+create new project:- 
+
+ng new my-first-app --no-strict --standalone false --routing false
+
+cd my-first-app
+
+ng serve --port --open
+
+packag.json have all the dependency configuratoin
+
+node_modules have all the dependecy located.
+
+
+
+
+Inclue bootstrap in angular.json for styling , intall bootstrap via npm
+"styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ]
+
+How Anguler App start;-
+
+index.js (tiggers) - > main.ts (bootstrap)-> appModule (Load) -> AppComponent - (attachec with) -> AppComponet.html - contain all sub component logic
+
+:- Component
+
+import { Component } from '@angular/core';
+
+@Component(
+{
+selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'})
+
+
+:- Module
+
+@NgModule({
+  declarations: [   // to declear component in app.module.ts
+    AppComponent
+  ],
+  imports: [  // to import existing module.
+    BrowserModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+Data Binding:-
+
+communication of data between typscrip to html or vice varsha
+
+Type of Data binding:- 
+1. one way binding:-
+2. Tow way binding:-
+
+:- One way binding
+{{componet_veriable}}  -  String interpolation one way binding,  ts -> html
+<input type='text' [property]="componet_veriable"> - property binding one way binding ts -> html
+(event)="expration"  - event binding one way binding  Html -> Ts
+
+:- Two way binding
+<input type='text' [(ngModel)]="title"> - tow way binding we need to import this in module import FormModule from '@angular/forms'
+
+
+
+@viewChield
+
+@ViewChild(ChieldComponent,{static:false}) childComponent!:ChieldComponent;
+
+viewChildren
+
+ItemComponent 
+@ViewChildren(ItemLabelComponent) allItems : QueryList<ItemLabelComponent>;
+
+ItemLabelComponent
+@Input() labelText: string;
+
+
+
+Directive:-  
+
+*ngIf
+
+* reffer it is an structural directive with chages structure.
+
+*ngIf: Conditionally adds or removes elements from the DOM based on an expression.
+Example: <div *ngIf="isLoggedIn">Welcome!</div>
+
+Anguler 17:- @if(condition) {};
+
+*ngFor: Iterates over a list of items and generates HTML for each item.
+Example: <li *ngFor="let item of items">{{ item }}</li>
+
+extract index in for"
+
+Example: <li *ngFor="let item of items; let i = index">{{ item }}</li>
+
+
+Angular 17 : @for (item of items; track item.id) {
+  <li>{{ item.title }}</li>
+}
+
+ngModel: Binds an input, select, or textarea element to a property on the component's model.
+Example: <input [(ngModel)]="name">
+
+ngClass: Adds or removes CSS classes based on conditions.
+Example: <div [ngClass]="{'active': isActive, 'inactive': !isActive}">
+
+ngStyle: Sets inline CSS styles based on expression evaluation.
+Example: <div [ngStyle]="{'color': isPrimary ? 'blue' : 'red'}">
+
+ngSwitch: Conditionally switches among multiple templates based on expression evaluation.
+Example:
+
+<div [ngSwitch]="color">
+    <p *ngSwitchCase="'red'">Red Color</p>
+    <p *ngSwitchCase="'blue'">Blue Color</p>
+    <p *ngSwitchDefault>Default Color</p>
+</div>
+ngClassNgStyle: A combination of ngClass and ngStyle directives.
+Example: <div [ngClass]="{'active': isActive}" [ngStyle]="{'color': isPrimary ? 'blue' : 'red'}">
+
+ngIfElse: Conditionally adds or removes elements from the DOM based on an expression, with an alternative template provided.
+Example:
+
+<div *ngIf="isLoggedIn; else loginMessage">
+    Welcome!
+</div>
+<ng-template #loginMessage>
+    <p>Please log in to continue.</p>
+</ng-template>
+
+
+Custom Directive:- 
+
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appMyDirective]'
+})
+export class MyDirectiveDirective {
+
+  constructor(private el: ElementRef) { }
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('yellow');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+
+}
+
+
